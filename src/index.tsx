@@ -3,10 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Animals } from './components/animalPage/animals';
+import { Animal } from './components/animalPage/animal';
+import { Layout } from './components/animalPage/layout';
+import { NotFound } from './components/animalPage/notFound';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+  <BrowserRouter>
+  <Routes>
+    <Route path="/" element ={<Layout/>}>
+    <Route index element ={<Animals/>}></Route>
+    <Route path="animal/:id" element ={<Animal />}></Route>
+    <Route path="*" element ={<NotFound />}></Route>
+    </Route>
+  </Routes>
+  </BrowserRouter>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );
