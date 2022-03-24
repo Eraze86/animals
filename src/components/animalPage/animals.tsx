@@ -9,13 +9,11 @@ export function Animals(){
  const [animals, setAnimals] = useState<IAnimal[]>([])
     useEffect(()=>{
         if(Animals.length > 0) return
-        if(!localStorage.getItem("animals"))
-        axios.get<IAnimal[]>("https://animals.azurewebsites.net/api/animals").then((response)=>{ 
+            axios.get<IAnimal[]>("https://animals.azurewebsites.net/api/animals").then((response)=>{ 
+                setAnimals(response.data)
+                console.log(response.data)
 
-            localStorage.setItem( 'animals', JSON.stringify(response.data) );
-            setAnimals(response.data)
-            console.log(response.data)
-        
+             localStorage.setItem( 'animals', JSON.stringify(response.data) );
         });
     }, [])
   
