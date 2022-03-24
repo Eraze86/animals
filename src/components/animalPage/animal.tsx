@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { IAnimal } from "./modules/IAnimal";
@@ -8,7 +8,6 @@ export function Animal(){
     const [animalId, setAnimalId] = useState(0)
     const [animal, setAnimal] = useState<IAnimal[]>()
     const [fedAnimal, setFedAnimal] = useState(false)
-    const [time, setTime] = useState(Date)
     const [disable, setDisable] = useState(false);
     let params = useParams();
 
@@ -22,27 +21,24 @@ export function Animal(){
             setAnimal(JSON.parse(localAnimal))
         }    
     },[animalId]);
-
+   
     let showAnimals = animal?.map((animal: IAnimal)=>{
 
   function feedTheAnimal(){
     setFedAnimal(true)
     setDisable(true)
-    const time = new Date();
-    const date = `${time.getDate()}/${time.getMonth()+1} kl ${time.getHours()}:${time.getMinutes()}`;
-    setTime(date)
+    let ls = JSON.parse(localStorage.getItem('animals') || '');
+    for(let i = 0; i < ls.length; i++){
 
-   
-    // let fed = JSON.parse(localStorage.getItem('animals') || '');
-    // for(let i = 0; i < fed.length; i++){
-    //     if(i ===fed.id){
-    // fed[i].isFed = true;
-    // // fed[i].lastFed = date
-    // localStorage.setItem("animals", JSON.stringify(fed ) )
-    // console.log(fed)
-    // }
-// }
-  
+        if(i+1 === +params.id!){
+
+            ls[i].isFed = true;
+            ls[i].lastFed =  new Date().toLocaleString();
+
+            localStorage.setItem('animals', JSON.stringify(ls));
+
+        }}
+
   }
         if(animalId === animal.id){
         return(<>
@@ -55,7 +51,8 @@ export function Animal(){
            
            <button disabled={disable} onClick={()=> feedTheAnimal()}>Mata</button>
             <div>
-                {fedAnimal && <p>Djuret är matat {time}</p>}
+                {fedAnimal && <p>Djuret är matat </p>}
+                <p>senast matat: {animal.lastFed}</p>
                 </div>
            </div>
             </>)
