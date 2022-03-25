@@ -17,7 +17,7 @@ export function Animals(){
         });
     }, [])
   
-    let listOfAnimals = animals.map((animal, i) =>{
+    let listOfAnimals = animals.map((animal, i: number) =>{
         let animalLink =  `/animal/${animal.id}`
         return ( 
         <>

@@ -27,15 +27,15 @@ export function Animal(){
   function feedTheAnimal(){
     setFedAnimal(true)
     setDisable(true)
-    let ls = JSON.parse(localStorage.getItem('animals') || '');
-    for(let i = 0; i < ls.length; i++){
+    let localS = JSON.parse(localStorage.getItem('animals') || '');
+    for(let i = 0; i < localS.length; i++){
 
         if(i+1 === +params.id!){
 
-            ls[i].isFed = true;
-            ls[i].lastFed =  new Date().toLocaleString();
+            localS[i].isFed = true;
+            localS[i].lastFed =  new Date().toLocaleString();
 
-            localStorage.setItem('animals', JSON.stringify(ls));
+            localStorage.setItem('animals', JSON.stringify(localS));
 
         }}
 
